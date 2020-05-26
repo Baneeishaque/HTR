@@ -1,1 +1,1 @@
-Validation character error rate of saved model: 10.959454%
+Validation character error rate of saved model: 10.624916%
