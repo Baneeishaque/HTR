@@ -1,7 +1,7 @@
 from __future__ import division
 from __future__ import print_function
 
-import sys
+import os
 import argparse
 import cv2
 import editdistance
@@ -15,7 +15,8 @@ class FilePaths:
 	fnCharList = '../model/charList.txt'
 	fnAccuracy = '../model/accuracy.txt'
 	fnTrain = '../data/'
-	fnInfer = '../data/test.png'
+	# fnInfer = '../data/test.png'
+	testDir = '../data/test_images/'
 	fnCorpus = '../data/corpus.txt'
 
 
@@ -110,10 +111,10 @@ def main():
 	args = parser.parse_args()
 
 	decoderType = DecoderType.BestPath
-	if args.beamsearch:
-		decoderType = DecoderType.BeamSearch
-	elif args.wordbeamsearch:
-		decoderType = DecoderType.WordBeamSearch
+	# if args.beamsearch:
+	# 	decoderType = DecoderType.BeamSearch
+	# elif args.wordbeamsearch:
+	# 	decoderType = DecoderType.WordBeamSearch
 
 	# train or validate on IAM dataset	
 	if args.train or args.validate:
@@ -138,7 +139,11 @@ def main():
 	else:
 		print(open(FilePaths.fnAccuracy).read())
 		model = Model(open(FilePaths.fnCharList).read(), decoderType, mustRestore=True, dump=args.dump)
-		infer(model, FilePaths.fnInfer)
+		# infer(model, FilePaths.fnInfer))
+		for file in os.listdir(FilePaths.testDir):
+			img = FilePaths.testDir + file
+			print('IMG ::  ', img)
+			infer(model, img)
 
 
 if __name__ == '__main__':
