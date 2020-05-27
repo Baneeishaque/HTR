@@ -104,8 +104,8 @@ def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--train', help='train the NN', action='store_true')
 	parser.add_argument('--validate', help='validate the NN', action='store_true')
-	parser.add_argument('--beamsearch', help='use beam search instead of best path decoding', action='store_true')
-	parser.add_argument('--wordbeamsearch', help='use word beam search instead of best path decoding', action='store_true')
+	# parser.add_argument('--beamsearch', help='use beam search instead of best path decoding', action='store_true')
+	# parser.add_argument('--wordbeamsearch', help='use word beam search instead of best path decoding', action='store_true')
 	parser.add_argument('--dump', help='dump output of NN to CSV file(s)', action='store_true')
 
 	args = parser.parse_args()
@@ -141,6 +141,7 @@ def main():
 		model = Model(open(FilePaths.fnCharList).read(), decoderType, mustRestore=True, dump=args.dump)
 		# infer(model, FilePaths.fnInfer))
 		for file in os.listdir(FilePaths.testDir):
+			print('===============================================================================================================================================================')
 			img = FilePaths.testDir + file
 			print('IMG ::  ', img)
 			infer(model, img)
